@@ -3,7 +3,7 @@ const WHATSAPP_GREETING =
   "Hi Sudheer, I came across your portfolio and wanted to connect.";
 
 export const site = {
-  name: "Sai Sudheer Reddy",
+  name: "Karri Sai Sudheer Reddy",
   shortName: "Sudheer",
   role: "Senior QA Automation Engineer",
   tagline:
