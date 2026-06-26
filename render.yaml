@@ -1,0 +1,41 @@
+# Render Infrastructure as Code
+# Docs: https://render.com/docs/blueprint-spec
+#
+# When you connect this repo on render.com, Render will detect this file and
+# offer to provision the service automatically. You can also deploy manually
+# via the dashboard using the same settings shown below.
+
+services:
+  - type: web
+    runtime: static
+    name: sai-sudheer-portfolio
+    plan: free
+    # Build the Next.js static export
+    buildCommand: npm ci && npm run build
+    # Next.js writes the export to ./out
+    staticPublishPath: ./out
+    # Auto-deploy on every push to main
+    branch: main
+    autoDeploy: true
+    # SPA-style fallback so /404, /writing, etc. resolve cleanly
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    # Long-cache the immutable Next.js asset bundle, short-cache the HTML
+    headers:
+      - path: /_next/static/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()

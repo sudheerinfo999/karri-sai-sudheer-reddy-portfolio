@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 9 9 11;
+    --muted: 113 113 122;
+    --card: 255 255 255;
+    --border: 228 228 231;
+    --accent: 37 99 235;
+  }
+
+  .dark {
+    --background: 10 10 12;
+    --foreground: 244 244 245;
+    --muted: 161 161 170;
+    --card: 18 18 22;
+    --border: 39 39 42;
+    --accent: 96 165 250;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.2);
+    color: rgb(var(--foreground));
+  }
+
+  *:focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-xl border;
+    background: rgb(var(--card) / 0.6);
+    border-color: rgb(var(--border) / 0.6);
+  }
+
+  .glass-strong {
+    @apply backdrop-blur-2xl border;
+    background: rgb(var(--card) / 0.78);
+    border-color: rgb(var(--border) / 0.7);
+  }
+
+  .card-surface {
+    @apply rounded-2xl border shadow-soft;
+    background: rgb(var(--card));
+    border-color: rgb(var(--border));
+  }
+
+  .text-muted {
+    color: rgb(var(--muted));
+  }
+
+  .gradient-text {
+    background: linear-gradient(
+      120deg,
+      rgb(var(--accent)) 0%,
+      rgb(99 102 241) 50%,
+      rgb(var(--foreground)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ring-accent {
+    box-shadow: 0 0 0 1px rgb(var(--accent) / 0.35),
+      0 8px 40px -8px rgb(var(--accent) / 0.4);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none;
+  }
+
+  .btn-primary {
+    background: rgb(var(--accent));
+    color: white;
+  }
+  .btn-primary:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 10px 30px -10px rgb(var(--accent) / 0.6);
+  }
+
+  .btn-ghost {
+    background: rgb(var(--card) / 0.6);
+    color: rgb(var(--foreground));
+    border: 1px solid rgb(var(--border));
+  }
+  .btn-ghost:hover {
+    background: rgb(var(--card));
+    border-color: rgb(var(--accent) / 0.4);
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium;
+    background: rgb(var(--card) / 0.7);
+    border: 1px solid rgb(var(--border));
+    color: rgb(var(--foreground));
+  }
+
+  .section {
+    @apply relative mx-auto w-full max-w-6xl px-5 py-12 sm:px-6 sm:py-14 lg:py-16;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-muted;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--foreground) / 0.06) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--foreground) / 0.06) 1px,
+        transparent 1px
+      );
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 0%,
+      black 50%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 0%,
+      black 50%,
+      transparent 100%
+    );
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
